@@ -425,7 +425,7 @@ This ensures the user always retains control when the classifier cannot confiden
 
 ### Seeding Auto-Mode-Equivalent Permissions (No Team Plan Required)
 
-If you don't have a Team plan or want a simpler approach without the background classifier, you can seed your `~/.claude/settings.json` with ~67 safe permission rules that cover the same ground as auto mode's default allow-list.
+If you don't have a Team plan or want a simpler approach without the background classifier, you can seed your `~/.claude/settings.json` with a conservative baseline of safe permission rules. The script starts with read-only and local-inspection rules, then lets you opt into edits, tests, local git writes, package installs, and GitHub write actions only when you want them.
 
 **File:** `09-advanced-features/setup-auto-mode-permissions.py`
 
@@ -433,16 +433,23 @@ If you don't have a Team plan or want a simpler approach without the background 
 # Preview what would be added (no changes written)
 python3 09-advanced-features/setup-auto-mode-permissions.py --dry-run
 
-# Apply once — safe to re-run (skips rules already present)
+# Apply the conservative baseline
 python3 09-advanced-features/setup-auto-mode-permissions.py
+
+# Add more capability only when you need it
+python3 09-advanced-features/setup-auto-mode-permissions.py --include-edits --include-tests
+python3 09-advanced-features/setup-auto-mode-permissions.py --include-git-write --include-packages
 ```
 
 The script adds rules across these categories:
 
 | Category | Examples |
 |----------|---------|
-| Built-in tools | `Read(*)`, `Edit(*)`, `Write(*)`, `Glob(*)`, `Grep(*)`, `Agent(*)`, `WebSearch(*)` |
-| Git (read) | `Bash(git status:*)`, `Bash(git log:*)`, `Bash(git diff:*)` |
+| Core read-only tools | `Read(*)`, `Glob(*)`, `Grep(*)`, `Agent(*)`, `WebSearch(*)`, `WebFetch(*)` |
+| Local inspection | `Bash(git status:*)`, `Bash(git log:*)`, `Bash(git diff:*)`, `Bash(cat:*)` |
+| Optional edits | `Edit(*)`, `Write(*)`, `NotebookEdit(*)` |
+| Optional test/build | `Bash(pytest:*)`, `Bash(python3 -m pytest:*)`, `Bash(cargo test:*)` |
+| Optional git writes | `Bash(git add:*)`, `Bash(git commit:*)`, `Bash(git stash:*)` |
 | Git (local write) | `Bash(git add:*)`, `Bash(git commit:*)`, `Bash(git checkout:*)` |
 | Package managers | `Bash(npm install:*)`, `Bash(pip install:*)`, `Bash(cargo build:*)` |
 | Build & test | `Bash(make:*)`, `Bash(pytest:*)`, `Bash(go test:*)` |
