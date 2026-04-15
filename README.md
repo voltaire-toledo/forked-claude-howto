@@ -14,8 +14,11 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Version](https://img.shields.io/badge/version-2.3.0-brightgreen)](CHANGELOG.md)
 [![Claude Code](https://img.shields.io/badge/Claude_Code-2.1+-purple)](https://code.claude.com)
+[![GitHub Copilot](https://img.shields.io/badge/GitHub_Copilot-Course-blue)](copilot-course/README.md)
 
 🌐 **Language / Ngôn ngữ / 语言 / Мова:** [English](README.md) | [Tiếng Việt](vi/README.md) | [中文](zh/README.md) | [Українська](uk/README.md)
+
+> 🆕 **Also available:** [GitHub Copilot in a Weekend](copilot-course/README.md) — the same 10-module structure adapted for GitHub Copilot. See the [Transition Guide](TRANSITION_GUIDE.md) if you're moving from Claude Code to Copilot.
 
 # Master Claude Code in a Weekend
 
